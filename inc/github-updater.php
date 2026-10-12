@@ -106,7 +106,7 @@ function asoprint_plugin_update( $transient ) {
 		'new_version'  => $release['version'],
 		'url'          => $release['html_url'],
 		'package'      => $release['download_url'],
-		'requires'     => '6.0',
+		'requires'     => '6.3',
 		'requires_php' => '8.0',
 	);
 
@@ -138,7 +138,7 @@ function asoprint_plugin_information( $result, $action, $args ) {
 		'version'       => $release['version'],
 		'author'        => 'Asosyoloji',
 		'homepage'      => $release['html_url'],
-		'requires'      => '6.0',
+		'requires'      => '6.3',
 		'requires_php'  => '8.0',
 		'download_link' => $release['download_url'],
 		'sections'      => array(

@@ -9,6 +9,7 @@ Basılı dergi sayılarını WordPress içinde ayrı kayıtlar halinde saklar ve
 - PDF için WordPress Medya Kütüphanesi seçicisi ve dosya türü doğrulaması
 - Otomatik `/basili-yayinlar/` arşiv sayfası
 - Grid veya liste görünümüne sahip klasik widget
+- Sayfa ve yazılara görsel önizlemeyle eklenebilen Gutenberg bloğu
 - Sayfa ve yazılarda kullanılabilen kısa kod
 - Asosyoloji temasının açık/koyu görünümü ve `#540048` marka rengiyle uyumlu responsive tasarım
 - Tema içindeki eski manuel basılı sayılar widgetını, eklenti etkin olduğu sürece gizleme
@@ -20,6 +21,8 @@ Basılı dergi sayılarını WordPress içinde ayrı kayıtlar halinde saklar ve
 2. Yönetim menüsünden **Basılı Yayınlar → Yeni yayın ekle** seçeneğine gidin.
 3. Başlık, sayı ve tarihi girin; PDF belgesini seçin. İsterseniz kapak görseli belirleyin.
 4. **Görünüm → Bileşenler** bölümünden **Asosyoloji: Basılı Yayın Arşivi** widgetını ekleyin.
+
+Blok editöründe **Blok ekle → Asosyoloji Basılı Yayınlar** seçeneğini kullanabilirsiniz. Sağ panelden başlığı, gösterilecek yayın sayısını, grid/liste görünümünü, sıralamayı ve açıklamaları düzenleyebilirsiniz.
 
 Bir sayfanın içeriğine eklemek için:
 
@@ -37,6 +40,6 @@ Bir sayfanın içeriğine eklemek için:
 
 ## Gereksinimler
 
-- WordPress 6.0+
+- WordPress 6.3+
 - PHP 8.0+
 

@@ -2,11 +2,11 @@
 /**
  * Plugin Name: Asosyoloji Basılı Yayın Arşivi
  * Description: Basılı dergi sayılarını başlık, sayı, yayın tarihi, kapak ve PDF belgesiyle yönetir; widget ve kısa kod ile listeler.
- * Version: 0.1.1
+ * Version: 0.1.2
  * Author: Asosyoloji
  * License: GPL-3.0-or-later
  * Text Domain: asosyoloji-print-archive
- * Requires at least: 6.0
+ * Requires at least: 6.3
  * Requires PHP: 8.0
  */
 
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'ASOPRINT_VERSION', '0.1.1' );
+define( 'ASOPRINT_VERSION', '0.1.2' );
 define( 'ASOPRINT_FILE', __FILE__ );
 define( 'ASOPRINT_DIR', plugin_dir_path( __FILE__ ) );
 define( 'ASOPRINT_URL', plugin_dir_url( __FILE__ ) );
@@ -22,11 +22,12 @@ define( 'ASOPRINT_URL', plugin_dir_url( __FILE__ ) );
 require_once ASOPRINT_DIR . 'inc/post-type.php';
 require_once ASOPRINT_DIR . 'inc/meta-box.php';
 require_once ASOPRINT_DIR . 'inc/render.php';
+require_once ASOPRINT_DIR . 'inc/block.php';
 require_once ASOPRINT_DIR . 'inc/widget.php';
 require_once ASOPRINT_DIR . 'inc/github-updater.php';
 
 /**
- * Register public assets.
+ * Load archive styles on the frontend and inside the block editor iframe.
  */
 function asoprint_register_assets() {
 	wp_enqueue_style(
@@ -36,7 +37,7 @@ function asoprint_register_assets() {
 		ASOPRINT_VERSION
 	);
 }
-add_action( 'wp_enqueue_scripts', 'asoprint_register_assets' );
+add_action( 'enqueue_block_assets', 'asoprint_register_assets' );
 
 /**
  * Load the media selector on issue editing screens.
