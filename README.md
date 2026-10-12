@@ -9,6 +9,7 @@ Basılı dergi sayılarını WordPress içinde ayrı kayıtlar halinde saklar ve
 - PDF için WordPress Medya Kütüphanesi seçicisi ve dosya türü doğrulaması
 - Sayfaları sürükleyerek çevrilebilen, tam ekran ve mobil uyumlu 3D PDF okuyucu
 - Eski yayın içeriklerindeki PDF bloklarını otomatik tanıma
+- Standart WordPress/Apache sunucularında ek MIME yapılandırması gerektirmeyen yerel PDF motoru
 - Otomatik `/basili-yayinlar/` arşiv sayfası
 - Grid veya liste görünümüne sahip klasik widget
 - Sayfa ve yazılara görsel önizlemeyle eklenebilen Gutenberg bloğu
