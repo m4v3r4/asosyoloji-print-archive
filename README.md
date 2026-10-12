@@ -7,6 +7,8 @@ Basılı dergi sayılarını WordPress içinde ayrı kayıtlar halinde saklar ve
 - Basılı Yayınlar yönetim menüsü
 - Başlık, sayı, yayın tarihi, kapak görseli ve PDF belgesi
 - PDF için WordPress Medya Kütüphanesi seçicisi ve dosya türü doğrulaması
+- Sayfaları sürükleyerek çevrilebilen, tam ekran ve mobil uyumlu 3D PDF okuyucu
+- Eski yayın içeriklerindeki PDF bloklarını otomatik tanıma
 - Otomatik `/basili-yayinlar/` arşiv sayfası
 - Grid veya liste görünümüne sahip klasik widget
 - Sayfa ve yazılara görsel önizlemeyle eklenebilen Gutenberg bloğu
@@ -42,4 +44,11 @@ Bir sayfanın içeriğine eklemek için:
 
 - WordPress 6.3+
 - PHP 8.0+
+
+## Dahil edilen açık kaynak kütüphaneler
+
+- PDF.js 5.4.394 — Apache License 2.0
+- StPageFlip 2.0.7 — MIT License
+
+Lisans metinleri `assets/vendor` klasöründeki ilgili kütüphane dizinlerinde yer alır.
 

@@ -5,8 +5,16 @@
  * @package AsosyolojiPrintArchive
  */
 
+$queried_issue_id = get_queried_object_id();
+$queried_pdf_url  = asoprint_get_pdf_url( $queried_issue_id );
+
+if ( $queried_pdf_url ) {
+	asoprint_enqueue_flipbook_assets();
+} else {
+	wp_enqueue_style( 'asosyoloji-print-archive' );
+}
+
 get_header();
-wp_enqueue_style( 'asosyoloji-print-archive' );
 
 while ( have_posts() ) :
 	the_post();
@@ -16,7 +24,7 @@ while ( have_posts() ) :
 	$pdf_url  = asoprint_get_pdf_url( $issue_id );
 	?>
 	<div class="asoprint-page">
-		<article class="asoprint-single">
+		<article class="asoprint-single<?php echo $pdf_url ? ' asoprint-single--has-viewer' : ''; ?>">
 			<div class="asoprint-single__cover">
 				<?php echo wp_kses_post( asoprint_get_cover_markup( $issue_id ) ); ?>
 			</div>
@@ -30,13 +38,14 @@ while ( have_posts() ) :
 					<time class="asoprint-single__date" datetime="<?php echo esc_attr( get_post_meta( $issue_id, '_asoprint_publication_date', true ) ); ?>"><?php echo esc_html( $date ); ?></time>
 				<?php endif; ?>
 
+				<?php if ( $pdf_url ) : ?>
+					<?php echo asoprint_render_flipbook( $pdf_url, get_the_title() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+				<?php endif; ?>
+
 				<?php if ( trim( (string) get_the_content() ) ) : ?>
 					<div class="asoprint-single__description"><?php the_content(); ?></div>
 				<?php endif; ?>
 
-				<?php if ( $pdf_url ) : ?>
-					<a class="asoprint-single__button" href="<?php echo esc_url( $pdf_url ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'PDF’yi aç', 'asosyoloji-print-archive' ); ?></a>
-				<?php endif; ?>
 			</div>
 		</article>
 	</div>

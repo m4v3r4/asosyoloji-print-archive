@@ -33,11 +33,36 @@ function asoprint_format_publication_date( $date ) {
  */
 function asoprint_get_pdf_url( $post_id ) {
 	$pdf_id = absint( get_post_meta( $post_id, '_asoprint_pdf_id', true ) );
-	if ( ! $pdf_id || 'application/pdf' !== get_post_mime_type( $pdf_id ) ) {
-		return '';
+	if ( $pdf_id && 'application/pdf' === get_post_mime_type( $pdf_id ) ) {
+		return (string) wp_get_attachment_url( $pdf_id );
 	}
 
-	return (string) wp_get_attachment_url( $pdf_id );
+	$content = (string) get_post_field( 'post_content', $post_id );
+	if ( $content ) {
+		if ( preg_match_all( '/(?:href|src)=["\']([^"\']+)["\']/i', $content, $matches ) ) {
+			foreach ( $matches[1] as $candidate ) {
+				$candidate = html_entity_decode( $candidate, ENT_QUOTES, get_bloginfo( 'charset' ) );
+				$path      = (string) wp_parse_url( $candidate, PHP_URL_PATH );
+				if ( $path && preg_match( '/\.pdf$/i', $path ) ) {
+					return esc_url_raw( $candidate );
+				}
+			}
+		}
+
+		if ( preg_match( '#(?:https?:)?//[^\s"\'<>]+\.pdf(?:\?[^\s"\'<>]*)?#i', $content, $match ) ) {
+			return esc_url_raw( html_entity_decode( $match[0], ENT_QUOTES, get_bloginfo( 'charset' ) ) );
+		}
+	}
+
+	$attachments = get_attached_media( 'application/pdf', $post_id );
+	if ( $attachments ) {
+		$attachment = reset( $attachments );
+		if ( $attachment instanceof WP_Post ) {
+			return (string) wp_get_attachment_url( $attachment->ID );
+		}
+	}
+
+	return '';
 }
 
 /**
@@ -92,12 +117,12 @@ function asoprint_render_issue_card( $post_id, $show_description = false ) {
 	$number  = sanitize_text_field( get_post_meta( $post_id, '_asoprint_issue_number', true ) );
 	$date    = asoprint_format_publication_date( get_post_meta( $post_id, '_asoprint_publication_date', true ) );
 	$title   = get_the_title( $post_id );
-	$link    = $pdf_url ? $pdf_url : get_permalink( $post_id );
+	$link    = get_permalink( $post_id );
 
 	ob_start();
 	?>
 	<article class="asoprint-card">
-		<a class="asoprint-card__cover" href="<?php echo esc_url( $link ); ?>"<?php echo $pdf_url ? ' target="_blank" rel="noopener noreferrer"' : ''; ?>>
+		<a class="asoprint-card__cover" href="<?php echo esc_url( $link ); ?>">
 			<?php echo wp_kses_post( asoprint_get_cover_markup( $post_id ) ); ?>
 		</a>
 
@@ -107,7 +132,7 @@ function asoprint_render_issue_card( $post_id, $show_description = false ) {
 			<?php endif; ?>
 
 			<h3 class="asoprint-card__title">
-				<a href="<?php echo esc_url( $link ); ?>"<?php echo $pdf_url ? ' target="_blank" rel="noopener noreferrer"' : ''; ?>><?php echo esc_html( $title ); ?></a>
+				<a href="<?php echo esc_url( $link ); ?>"><?php echo esc_html( $title ); ?></a>
 			</h3>
 
 			<?php if ( $date ) : ?>
@@ -118,8 +143,8 @@ function asoprint_render_issue_card( $post_id, $show_description = false ) {
 				<p class="asoprint-card__excerpt"><?php echo esc_html( get_the_excerpt( $post_id ) ); ?></p>
 			<?php endif; ?>
 
-			<a class="asoprint-card__button" href="<?php echo esc_url( $link ); ?>"<?php echo $pdf_url ? ' target="_blank" rel="noopener noreferrer"' : ''; ?>>
-				<?php echo $pdf_url ? esc_html__( 'PDF’yi aç', 'asosyoloji-print-archive' ) : esc_html__( 'Yayını görüntüle', 'asosyoloji-print-archive' ); ?>
+			<a class="asoprint-card__button" href="<?php echo esc_url( $link ); ?>">
+				<?php echo $pdf_url ? esc_html__( 'Dergiyi oku', 'asosyoloji-print-archive' ) : esc_html__( 'Yayını görüntüle', 'asosyoloji-print-archive' ); ?>
 			</a>
 		</div>
 	</article>

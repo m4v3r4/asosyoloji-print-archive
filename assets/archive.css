@@ -198,6 +198,236 @@
   color: var(--asoprint-muted);
 }
 
+.asoprint-single--has-viewer {
+  grid-template-columns: minmax(220px, 320px) minmax(0, 1fr);
+  gap: clamp(28px, 4vw, 60px);
+}
+
+.asoprint-single--has-viewer .asoprint-single__description .wp-block-file,
+.asoprint-single--has-viewer .asoprint-single__description iframe,
+.asoprint-single--has-viewer .asoprint-single__description embed {
+  display: none;
+}
+
+.asoprint-flipbook {
+  margin-top: 30px;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--asoprint-accent) 34%, transparent);
+  background: #171016;
+  color: #fff;
+  box-shadow: 0 24px 70px rgba(36, 0, 30, .18);
+}
+
+.asoprint-flipbook__heading,
+.asoprint-flipbook__controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 18px clamp(16px, 3vw, 28px);
+  background: var(--asoprint-accent);
+}
+
+.asoprint-flipbook__heading h2 {
+  margin: 3px 0 0;
+  color: #fff;
+  font-size: clamp(1.05rem, 2vw, 1.4rem);
+  line-height: 1.15;
+}
+
+.asoprint-flipbook__eyebrow {
+  display: block;
+  color: rgba(255, 255, 255, .68);
+  font-size: .65rem;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.asoprint-flipbook__hint {
+  max-width: 230px;
+  color: rgba(255, 255, 255, .78);
+  font-size: .75rem;
+  line-height: 1.35;
+  text-align: right;
+}
+
+.asoprint-flipbook__stage {
+  position: relative;
+  min-height: clamp(430px, 58vw, 720px);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  padding: clamp(18px, 3vw, 34px);
+  outline: none;
+  perspective: 1800px;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(255, 255, 255, .13), transparent 48%),
+    linear-gradient(145deg, #30222e 0%, #160f15 64%, #0b080a 100%);
+}
+
+.asoprint-flipbook__stage:focus-visible {
+  box-shadow: inset 0 0 0 3px #fff;
+}
+
+.asoprint-flipbook__stage::after {
+  content: '';
+  position: absolute;
+  right: 8%;
+  bottom: 5%;
+  left: 8%;
+  height: 8%;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, .55);
+  filter: blur(22px);
+  pointer-events: none;
+}
+
+.asoprint-flipbook__book {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 18px 14px rgba(0, 0, 0, .4));
+}
+
+.asoprint-flipbook__page {
+  position: relative;
+  overflow: hidden;
+  background: #f7f3ea;
+  color: #5c5058;
+}
+
+.asoprint-flipbook__page::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  box-shadow: inset -12px 0 18px rgba(55, 25, 48, .09);
+  pointer-events: none;
+}
+
+.asoprint-flipbook__page canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  background: #fff;
+}
+
+.asoprint-flipbook__page--cover {
+  background: #eee7df;
+}
+
+.asoprint-flipbook__placeholder {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  font: 700 .78rem/1.4 system-ui, sans-serif;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.asoprint-flipbook__loading {
+  position: absolute;
+  z-index: 30;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 24px;
+  background: #171016;
+  color: rgba(255, 255, 255, .86);
+  font-size: .88rem;
+  text-align: center;
+  transition: opacity .25s ease, visibility .25s ease;
+}
+
+.asoprint-flipbook.is-ready .asoprint-flipbook__loading {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.asoprint-flipbook__spinner {
+  width: 22px;
+  height: 22px;
+  border: 2px solid rgba(255, 255, 255, .2);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: asoprint-spin .75s linear infinite;
+}
+
+@keyframes asoprint-spin {
+  to { transform: rotate(360deg); }
+}
+
+.asoprint-flipbook__controls {
+  flex-wrap: wrap;
+  background: #120c11;
+}
+
+.asoprint-flipbook__nav,
+.asoprint-flipbook__actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.asoprint-flipbook__control,
+.asoprint-flipbook__download {
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 13px;
+  border: 1px solid rgba(255, 255, 255, .28);
+  background: transparent;
+  color: #fff;
+  font: 750 .72rem/1 system-ui, sans-serif;
+  letter-spacing: .035em;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.asoprint-flipbook__control:hover:not(:disabled),
+.asoprint-flipbook__control:focus-visible,
+.asoprint-flipbook__download:hover,
+.asoprint-flipbook__download:focus-visible {
+  border-color: #fff;
+  background: #fff;
+  color: var(--asoprint-accent);
+}
+
+.asoprint-flipbook__control:disabled {
+  opacity: .35;
+  cursor: not-allowed;
+}
+
+.asoprint-flipbook__counter {
+  min-width: 60px;
+  color: rgba(255, 255, 255, .78);
+  font-size: .78rem;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
+.asoprint-flipbook:fullscreen,
+.asoprint-flipbook.is-fullscreen {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  border: 0;
+}
+
+.asoprint-flipbook:fullscreen .asoprint-flipbook__stage,
+.asoprint-flipbook.is-fullscreen .asoprint-flipbook__stage {
+  min-height: 0;
+  flex: 1;
+}
+
 .asoprint-single__description {
   margin-top: 28px;
   color: var(--asoprint-text);
@@ -236,6 +466,60 @@ html[data-theme="dark"] .asoprint-page {
 
   .asoprint-card__content {
     padding: 20px 18px;
+  }
+
+  .asoprint-single__cover {
+    max-width: 320px;
+  }
+
+  .asoprint-flipbook {
+    margin-right: -14px;
+    margin-left: -14px;
+  }
+
+  .asoprint-flipbook__heading {
+    align-items: flex-start;
+    padding: 15px 16px;
+  }
+
+  .asoprint-flipbook__hint {
+    max-width: 125px;
+    font-size: .66rem;
+  }
+
+  .asoprint-flipbook__stage {
+    min-height: min(132vw, 610px);
+    padding: 14px 10px 20px;
+  }
+
+  .asoprint-flipbook__controls,
+  .asoprint-flipbook__nav,
+  .asoprint-flipbook__actions {
+    width: 100%;
+  }
+
+  .asoprint-flipbook__controls {
+    padding: 13px 12px;
+  }
+
+  .asoprint-flipbook__nav,
+  .asoprint-flipbook__actions {
+    justify-content: space-between;
+  }
+
+  .asoprint-flipbook__control,
+  .asoprint-flipbook__download {
+    flex: 1;
+  }
+
+  .asoprint-flipbook__fullscreen {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .asoprint-flipbook__spinner {
+    animation-duration: 1.8s;
   }
 }
 
