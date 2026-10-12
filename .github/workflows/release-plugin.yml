@@ -1,0 +1,48 @@
+name: Release Plugin
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.0'
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '24'
+      - name: Quality gate
+        run: |
+          find . -type f -name '*.php' -not -path './build/*' -print0 | xargs -0 -n1 php -l
+          find assets -type f -name '*.js' -print0 | xargs -0 -n1 node --check
+      - name: Verify version
+        shell: bash
+        run: |
+          set -euo pipefail
+          TAG_VERSION="${GITHUB_REF_NAME#v}"
+          HEADER_VERSION=$(grep -Po "^ \* Version:\s*\K.*" asosyoloji-print-archive.php | tr -d '\r')
+          PHP_VERSION=$(grep -Po "ASOPRINT_VERSION',\s*'\K[^']+" asosyoloji-print-archive.php)
+          test "$TAG_VERSION" = "$HEADER_VERSION"
+          test "$TAG_VERSION" = "$PHP_VERSION"
+      - name: Build plugin ZIP
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p build/asosyoloji-print-archive
+          rsync -a ./ build/asosyoloji-print-archive/ --exclude '.git' --exclude '.github' --exclude 'build'
+          cd build
+          zip -qr asosyoloji-print-archive.zip asosyoloji-print-archive
+          unzip -t asosyoloji-print-archive.zip
+      - name: Publish GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" build/asosyoloji-print-archive.zip --title "$GITHUB_REF_NAME" --generate-notes
+
