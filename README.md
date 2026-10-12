@@ -17,6 +17,7 @@ Basılı dergi sayılarını WordPress içinde ayrı kayıtlar halinde saklar ve
 - Asosyoloji temasının açık/koyu görünümü ve `#540048` marka rengiyle uyumlu responsive tasarım
 - Tema içindeki eski manuel basılı sayılar widgetını, eklenti etkin olduğu sürece gizleme
 - GitHub Release üzerinden WordPress yönetim panelinde otomatik güncelleme
+- Manuel “Güncellemeleri tekrar kontrol et” işleminde sürüm önbelleğini anında yenileme
 
 ## Kullanım
 

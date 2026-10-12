@@ -32,7 +32,7 @@ function asoprint_enqueue_flipbook_assets() {
 	wp_enqueue_style( 'asosyoloji-print-archive' );
 	wp_enqueue_script(
 		'asoprint-flipbook',
-		ASOPRINT_URL . 'assets/flipbook.js',
+		ASOPRINT_URL . 'assets/flipbook-reader.js',
 		array(),
 		ASOPRINT_VERSION,
 		true

@@ -68,7 +68,7 @@ function asoprint_latest_release( $force = false ) {
 		'body'         => wp_kses_post( $data['body'] ?? '' ),
 	);
 
-	set_site_transient( $cache_key, $release, HOUR_IN_SECONDS );
+	set_site_transient( $cache_key, $release, 5 * MINUTE_IN_SECONDS );
 
 	return $release;
 }
@@ -156,3 +156,4 @@ function asoprint_clear_release_cache() {
 	delete_site_transient( 'asoprint_github_release' );
 }
 add_action( 'wp_update_plugins', 'asoprint_clear_release_cache' );
+add_action( 'delete_site_transient_update_plugins', 'asoprint_clear_release_cache' );
