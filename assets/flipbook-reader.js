@@ -17,6 +17,7 @@ const renderFlipbook = async (root) => {
   const next = root.querySelector('[data-asoprint-next]');
   const fullscreen = root.querySelector('[data-asoprint-fullscreen]');
   const thumbnails = root.querySelector('[data-asoprint-thumbnails]');
+  const thumbnailsToggle = root.querySelector('[data-asoprint-thumbnails-toggle]');
   const zoomOut = root.querySelector('[data-asoprint-zoom-out]');
   const zoomReset = root.querySelector('[data-asoprint-zoom-reset]');
   const zoomIn = root.querySelector('[data-asoprint-zoom-in]');
@@ -25,6 +26,15 @@ const renderFlipbook = async (root) => {
   const storageKey = `asoprint:last-page:${window.location.pathname}:${pdfUrl}`;
   const zoomLevels = [1, 1.25, 1.5, 1.75, 2];
   let zoomIndex = 0;
+
+  const setThumbnailsOpen = (isOpen) => {
+    root.classList.toggle('is-thumbnails-open', isOpen);
+    thumbnailsToggle?.setAttribute('aria-expanded', String(isOpen));
+  };
+
+  thumbnailsToggle?.addEventListener('click', () => {
+    setThumbnailsOpen(!root.classList.contains('is-thumbnails-open'));
+  });
 
   const readSavedPage = (pageCount) => {
     try {
@@ -199,7 +209,12 @@ const renderFlipbook = async (root) => {
     thumbnailButtons.forEach((button) => {
       button.addEventListener('click', () => {
         const pageIndex = Number.parseInt(button.dataset.pageIndex || '0', 10);
-        renderPage(pageIndex + 1).then(() => pageFlip.turnToPage(pageIndex));
+        renderPage(pageIndex + 1).then(() => {
+          pageFlip.turnToPage(pageIndex);
+          if (window.matchMedia('(max-width: 620px)').matches) {
+            setThumbnailsOpen(false);
+          }
+        });
       });
     });
 
@@ -273,6 +288,24 @@ const renderFlipbook = async (root) => {
         fullscreen.textContent = isFullscreen ? 'Tam ekrandan çık' : 'Tam ekran';
         window.setTimeout(() => pageFlip.update(), 120);
       });
+    }
+
+    let resizeTimer;
+    let lastStageWidth = Math.round(stage.getBoundingClientRect().width);
+    const refreshLayout = () => {
+      window.clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(() => {
+        const stageWidth = Math.round(stage.getBoundingClientRect().width);
+        if (stageWidth === lastStageWidth) return;
+        lastStageWidth = stageWidth;
+        pageFlip.update();
+        stage.scrollTo({ top: 0, left: 0 });
+      }, 120);
+    };
+    window.addEventListener('resize', refreshLayout, { passive: true });
+    if ('ResizeObserver' in window) {
+      const resizeObserver = new ResizeObserver(refreshLayout);
+      resizeObserver.observe(stage);
     }
 
     root.classList.add('is-ready');

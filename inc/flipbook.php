@@ -51,6 +51,8 @@ function asoprint_render_flipbook( $pdf_url, $title ) {
 		return '';
 	}
 
+	$thumbnails_id = wp_unique_id( 'asoprint-thumbnails-' );
+
 	ob_start();
 	?>
 	<section class="asoprint-flipbook" data-asoprint-flipbook data-pdf-url="<?php echo esc_url( $pdf_url ); ?>" aria-label="<?php echo esc_attr( sprintf( __( '%s PDF okuyucu', 'asosyoloji-print-archive' ), $title ) ); ?>">
@@ -59,7 +61,10 @@ function asoprint_render_flipbook( $pdf_url, $title ) {
 				<span class="asoprint-flipbook__eyebrow"><?php esc_html_e( 'Dijital okuma', 'asosyoloji-print-archive' ); ?></span>
 				<h2><?php esc_html_e( 'Dergiyi çevirerek inceleyin', 'asosyoloji-print-archive' ); ?></h2>
 			</div>
-			<span class="asoprint-flipbook__hint"><?php esc_html_e( 'Sayfayı sürükleyin veya okları kullanın', 'asosyoloji-print-archive' ); ?></span>
+			<span class="asoprint-flipbook__hint">
+				<span class="asoprint-flipbook__hint-desktop"><?php esc_html_e( 'Sayfayı sürükleyin veya okları kullanın', 'asosyoloji-print-archive' ); ?></span>
+				<span class="asoprint-flipbook__hint-mobile"><?php esc_html_e( 'Kaydırarak sayfa değiştirin', 'asosyoloji-print-archive' ); ?></span>
+			</span>
 		</div>
 
 		<div class="asoprint-flipbook__stage" data-asoprint-stage tabindex="0">
@@ -70,7 +75,7 @@ function asoprint_render_flipbook( $pdf_url, $title ) {
 			<div class="asoprint-flipbook__book" data-asoprint-book></div>
 		</div>
 
-		<div class="asoprint-flipbook__thumbnails" data-asoprint-thumbnails aria-label="<?php esc_attr_e( 'Sayfa önizlemeleri', 'asosyoloji-print-archive' ); ?>"></div>
+		<div id="<?php echo esc_attr( $thumbnails_id ); ?>" class="asoprint-flipbook__thumbnails" data-asoprint-thumbnails aria-label="<?php esc_attr_e( 'Sayfa önizlemeleri', 'asosyoloji-print-archive' ); ?>"></div>
 
 		<div class="asoprint-flipbook__controls">
 			<div class="asoprint-flipbook__nav">
@@ -79,6 +84,7 @@ function asoprint_render_flipbook( $pdf_url, $title ) {
 				<button type="button" class="asoprint-flipbook__control" data-asoprint-next disabled aria-label="<?php esc_attr_e( 'Sonraki sayfa', 'asosyoloji-print-archive' ); ?>"><span><?php esc_html_e( 'Sonraki', 'asosyoloji-print-archive' ); ?></span> →</button>
 			</div>
 			<div class="asoprint-flipbook__actions">
+				<button type="button" class="asoprint-flipbook__control asoprint-flipbook__pages-toggle" data-asoprint-thumbnails-toggle aria-expanded="false" aria-controls="<?php echo esc_attr( $thumbnails_id ); ?>"><?php esc_html_e( 'Sayfalar', 'asosyoloji-print-archive' ); ?></button>
 				<div class="asoprint-flipbook__zoom" role="group" aria-label="<?php esc_attr_e( 'Yakınlaştırma', 'asosyoloji-print-archive' ); ?>">
 					<button type="button" class="asoprint-flipbook__control" data-asoprint-zoom-out aria-label="<?php esc_attr_e( 'Uzaklaştır', 'asosyoloji-print-archive' ); ?>">−</button>
 					<button type="button" class="asoprint-flipbook__control" data-asoprint-zoom-reset aria-label="<?php esc_attr_e( 'Yakınlaştırmayı sıfırla', 'asosyoloji-print-archive' ); ?>">100%</button>

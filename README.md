@@ -7,7 +7,8 @@ Basılı dergi sayılarını WordPress içinde ayrı kayıtlar halinde saklar ve
 - Basılı Yayınlar yönetim menüsü
 - Başlık, sayı, yayın tarihi, kapak görseli ve PDF belgesi
 - PDF için WordPress Medya Kütüphanesi seçicisi ve dosya türü doğrulaması
-- Sayfaları sürükleyerek çevrilebilen, tam ekran ve mobil uyumlu 3D PDF okuyucu
+- Sayfaları sürükleyerek çevrilebilen, ekran dönüşünde kendini yeniden ölçen ve mobil kontrollere sahip 3D PDF okuyucu
+- Mobilde açılır sayfa önizlemeleri, başparmak erişimine uygun gezinme ve taşmasız tek sayfa görünümü
 - Son kalınan sayfayı tarayıcıda hatırlama, %100–200 yakınlaştırma ve küçük sayfa önizlemeleri
 - Eski yayın içeriklerindeki PDF bloklarını otomatik tanıma
 - Standart WordPress/Apache sunucularında ek MIME yapılandırması gerektirmeyen yerel PDF motoru

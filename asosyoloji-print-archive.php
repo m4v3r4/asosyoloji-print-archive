@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Asosyoloji Basılı Yayın Arşivi
  * Description: Basılı dergi sayılarını başlık, sayı, yayın tarihi, kapak ve PDF belgesiyle yönetir; widget ve kısa kod ile listeler.
- * Version: 0.2.0
+ * Version: 0.2.1
  * Author: Asosyoloji
  * License: GPL-3.0-or-later
  * Text Domain: asosyoloji-print-archive
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'ASOPRINT_VERSION', '0.2.0' );
+define( 'ASOPRINT_VERSION', '0.2.1' );
 define( 'ASOPRINT_FILE', __FILE__ );
 define( 'ASOPRINT_DIR', plugin_dir_path( __FILE__ ) );
 define( 'ASOPRINT_URL', plugin_dir_url( __FILE__ ) );
