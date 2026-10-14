@@ -288,7 +288,58 @@
   z-index: 1;
   width: 100%;
   height: 100%;
+  scale: var(--asoprint-zoom, 1);
+  transform-origin: top center;
+  transition: scale .2s ease;
   filter: drop-shadow(0 18px 14px rgba(0, 0, 0, .4));
+}
+
+.asoprint-flipbook__stage.is-zoomed {
+  place-items: start center;
+  overflow: auto;
+}
+
+.asoprint-flipbook__thumbnails {
+  display: flex;
+  gap: 10px;
+  padding: 12px 14px;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scrollbar-color: rgba(255,255,255,.35) transparent;
+  background: #0d090c;
+}
+
+.asoprint-flipbook__thumbnail {
+  width: 64px;
+  min-width: 64px;
+  height: 84px;
+  display: grid;
+  place-items: center;
+  padding: 3px;
+  overflow: hidden;
+  border: 2px solid transparent;
+  background: #2a2128;
+  color: rgba(255,255,255,.72);
+  font: 750 .72rem/1 system-ui, sans-serif;
+  cursor: pointer;
+}
+
+.asoprint-flipbook__thumbnail canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  background: #fff;
+}
+
+.asoprint-flipbook__thumbnail:hover,
+.asoprint-flipbook__thumbnail:focus-visible,
+.asoprint-flipbook__thumbnail.is-active {
+  border-color: #fff;
+}
+
+.asoprint-flipbook__thumbnail.is-active {
+  box-shadow: 0 0 0 2px var(--asoprint-accent);
 }
 
 .asoprint-flipbook__page {
@@ -369,15 +420,24 @@
 }
 
 .asoprint-flipbook__nav,
-.asoprint-flipbook__actions {
+.asoprint-flipbook__actions,
+.asoprint-flipbook__zoom {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
+.asoprint-flipbook__zoom .asoprint-flipbook__control {
+  min-width: 42px;
+}
+
+.asoprint-flipbook__zoom [data-asoprint-zoom-reset] {
+  min-width: 62px;
+}
+
 .asoprint-flipbook__control,
 .asoprint-flipbook__download {
-  min-height: 40px;
+  min-height: 44px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -510,6 +570,14 @@ html[data-theme="dark"] .asoprint-page {
   .asoprint-flipbook__control,
   .asoprint-flipbook__download {
     flex: 1;
+  }
+
+  .asoprint-flipbook__zoom {
+    flex: 1 1 100%;
+  }
+
+  .asoprint-flipbook__zoom .asoprint-flipbook__control {
+    min-width: 44px;
   }
 
   .asoprint-flipbook__fullscreen {

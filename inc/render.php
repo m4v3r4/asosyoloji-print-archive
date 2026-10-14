@@ -122,7 +122,7 @@ function asoprint_render_issue_card( $post_id, $show_description = false ) {
 	ob_start();
 	?>
 	<article class="asoprint-card">
-		<a class="asoprint-card__cover" href="<?php echo esc_url( $link ); ?>">
+		<a class="asoprint-card__cover" href="<?php echo esc_url( $link ); ?>" aria-label="<?php echo esc_attr( $title ); ?>">
 			<?php echo wp_kses_post( asoprint_get_cover_markup( $post_id ) ); ?>
 		</a>
 

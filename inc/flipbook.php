@@ -70,6 +70,8 @@ function asoprint_render_flipbook( $pdf_url, $title ) {
 			<div class="asoprint-flipbook__book" data-asoprint-book></div>
 		</div>
 
+		<div class="asoprint-flipbook__thumbnails" data-asoprint-thumbnails aria-label="<?php esc_attr_e( 'Sayfa önizlemeleri', 'asosyoloji-print-archive' ); ?>"></div>
+
 		<div class="asoprint-flipbook__controls">
 			<div class="asoprint-flipbook__nav">
 				<button type="button" class="asoprint-flipbook__control" data-asoprint-prev disabled aria-label="<?php esc_attr_e( 'Önceki sayfa', 'asosyoloji-print-archive' ); ?>">← <span><?php esc_html_e( 'Önceki', 'asosyoloji-print-archive' ); ?></span></button>
@@ -77,6 +79,11 @@ function asoprint_render_flipbook( $pdf_url, $title ) {
 				<button type="button" class="asoprint-flipbook__control" data-asoprint-next disabled aria-label="<?php esc_attr_e( 'Sonraki sayfa', 'asosyoloji-print-archive' ); ?>"><span><?php esc_html_e( 'Sonraki', 'asosyoloji-print-archive' ); ?></span> →</button>
 			</div>
 			<div class="asoprint-flipbook__actions">
+				<div class="asoprint-flipbook__zoom" role="group" aria-label="<?php esc_attr_e( 'Yakınlaştırma', 'asosyoloji-print-archive' ); ?>">
+					<button type="button" class="asoprint-flipbook__control" data-asoprint-zoom-out aria-label="<?php esc_attr_e( 'Uzaklaştır', 'asosyoloji-print-archive' ); ?>">−</button>
+					<button type="button" class="asoprint-flipbook__control" data-asoprint-zoom-reset aria-label="<?php esc_attr_e( 'Yakınlaştırmayı sıfırla', 'asosyoloji-print-archive' ); ?>">100%</button>
+					<button type="button" class="asoprint-flipbook__control" data-asoprint-zoom-in aria-label="<?php esc_attr_e( 'Yakınlaştır', 'asosyoloji-print-archive' ); ?>">+</button>
+				</div>
 				<button type="button" class="asoprint-flipbook__control asoprint-flipbook__fullscreen" data-asoprint-fullscreen><?php esc_html_e( 'Tam ekran', 'asosyoloji-print-archive' ); ?></button>
 				<a class="asoprint-flipbook__download" href="<?php echo esc_url( $pdf_url ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'PDF’yi indir', 'asosyoloji-print-archive' ); ?> ↗</a>
 			</div>
